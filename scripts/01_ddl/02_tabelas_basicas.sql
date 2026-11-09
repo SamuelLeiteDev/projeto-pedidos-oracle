@@ -3,6 +3,7 @@ CREATE SEQUENCE seq_moveestoque START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_pedido      START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_itempedido  START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_contareceber  START WITH 1 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_logauditoria  START WITH 1 INCREMENT BY 1 NOCACHE;
 
 CREATE TABLE pedido (
     id            NUMBER DEFAULT seq_pedido.NEXTVAL NOT NULL,
@@ -99,3 +100,16 @@ CREATE TABLE CONTA_RECEBER (
 );
 
 CREATE INDEX ix_contareceb_pedido  ON conta_receber (pedido_id);
+
+CREATE TABLE LOG_AUDITORIA (
+    id                  NUMBER DEFAULT seq_logauditoria.NEXTVAL NOT NULL,
+    operacao            VARCHAR2(1) NOT NULL,
+    chave_registro      VARCHAR2(100) NOT NULL,
+    valor_anterior      VARCHAR2(1000) NOT NULL,
+    valor_posterior     VARCHAR2(1000) NOT NULL,
+    audit_user          VARCHAR2(20) NOT NULL,
+    audit_date          DATE NOT NULL,
+    CONSTRAINT pk_logauditoria PRIMARY KEY (id),
+    CONSTRAINT ck_operacao_audit     CHECK (operacao IN ('I', 'U', 'D'))
+);
+
