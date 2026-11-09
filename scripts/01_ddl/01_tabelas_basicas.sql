@@ -37,3 +37,21 @@ CREATE TABLE estoque (
     CONSTRAINT fk_estoque_produto FOREIGN KEY (produto_id) REFERENCES produto (id),
     CONSTRAINT ck_estoque_saldo   CHECK (saldo >= 0)
 );
+
+-- Comentários
+COMMENT ON TABLE  cliente IS 'Clientes da loja';
+COMMENT ON COLUMN cliente.id            IS 'Id do cliente';
+COMMENT ON COLUMN cliente.nome          IS 'Nome do cliente';
+COMMENT ON COLUMN cliente.documento     IS 'Documento identificador do cliente (único)';
+COMMENT ON COLUMN cliente.email         IS 'Email do cliente';
+COMMENT ON COLUMN cliente.status        IS 'Situação do cliente: ATIVO, INATIVO ou INADIMPLENTE';
+COMMENT ON COLUMN cliente.data_cadastro IS 'Data em que o cliente foi cadastrado';
+
+COMMENT ON TABLE  produto IS 'Produtos vendidos pela loja';
+COMMENT ON COLUMN produto.codigo      IS 'Código do produto (único)';
+COMMENT ON COLUMN produto.descricao   IS 'Descrição do produto';
+COMMENT ON COLUMN produto.preco_venda IS 'Preço de venda atual, sempre maior que zero';
+COMMENT ON COLUMN produto.ativo       IS 'S se o produto pode ser vendido, N se não';
+
+COMMENT ON TABLE  estoque IS 'Saldo atual de cada produto';
+COMMENT ON COLUMN estoque.saldo IS 'Quantidade disponível, nunca negativa';
